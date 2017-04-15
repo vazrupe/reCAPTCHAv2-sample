@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+  <script type="text/javascript">
+    var captchaCallback = function(_) {
+      // submit button to able
+      var submitButton = document.getElementById("submit_button");
+      submitButton.disabled = false;
+
+      // anchor to able
+      var anchorTag = document.getElementById("anchor_submit");
+      anchorTag.classList.remove('disable');
+    }
+    var onloadCallback = function() {
+      grecaptcha.render('html_element', {
+        'sitekey': '{{ sitekey }}',
+        'callback': captchaCallback,
+        'theme': 'light'
+      });
+    }
+  </script>
+  <style>
+    .disable {
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <form action="post" method="POST">
+    <div id="html_element"></div>
+    <input id="submit_button" type="submit" value="submit" disabled>
+    <a id="anchor_submit" class="disable" href="#">sample anchor</a>
+  </form>
+</body>
+</html>
